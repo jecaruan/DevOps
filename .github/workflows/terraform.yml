@@ -55,4 +55,4 @@ jobs:
         
           terraform fmt
           terraform init
-          terraform apply -var='example_api_key=${{ secrets.EXAMPLE_API_KEY }}'
+          terraform apply -auto-approve
