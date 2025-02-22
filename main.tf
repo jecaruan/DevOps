@@ -145,7 +145,6 @@ resource "aws_instance" "ubuntu" { #EC2
         sudo composer install
         cp .env.example .env
 
-  
         echo "Writing new content to .env file..."
         echo "DB_HOST=${aws_db_instance.db-sample.address}"  >> /var/www/laravel/devops-proj/.env
         echo "DB_PORT=${aws_db_instance.db-sample.port}"  >> /var/www/laravel/devops-proj/.env
@@ -154,8 +153,8 @@ resource "aws_instance" "ubuntu" { #EC2
         echo "DB_PASSWORD=${aws_db_instance.db-sample.password}"  >> /var/www/laravel/devops-proj/.env
 
         php artisan key:generate
-        php artisan migrate \y
-        php artisan db:seed \y
+        php artisan migrate 
+        php artisan db:seed
         
         sudo chown -R $USER:$USER /var/www/laravel
         sudo chmod -R guo+w /var/www/laravel
@@ -167,9 +166,6 @@ resource "aws_instance" "ubuntu" { #EC2
     tags = {
         Name = "DevOps - Presentation"
     }
-
-      # Use a remote-exec provisioner to clear a specific line number in .env file
-   
 
     vpc_security_group_ids = [aws_security_group.instances.id]
 
